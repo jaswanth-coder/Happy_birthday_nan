@@ -194,8 +194,23 @@ $('document').ready(function(){
 		// 2. Blast of crackers & party confetti!
 		blastCrackers();
 
-		// 3. Continue to photo memories (if photos are present) or straight to Coffee Polama
+		// 3. Switch music to aesthetic soft song and show her photo memories
 		setTimeout(function(){
+			try {
+				var mainAudio = $('.song')[0];
+				if (mainAudio) {
+					mainAudio.pause();
+				}
+				var softAudio = $('#soft-music')[0];
+				if (softAudio) {
+					softAudio.currentTime = 0;
+					softAudio.volume = 0.85;
+					softAudio.play().catch(function(e){ console.log(e); });
+				}
+			} catch (e) {
+				console.log(e);
+			}
+
 			if ($('#photo-memories-container img').length > 0) {
 				$('#photo-memories-overlay').fadeIn('slow');
 			} else {
