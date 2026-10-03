@@ -52,10 +52,18 @@
     </div>
 
     <img src="Balloon-Border.png" width="100%" class="balloon-border">
- 
 
+    <!-- Cute Real Baby Cat GIFs at the start of the birthday animation -->
+    <div class="cat-peeker cat-left">
+    	<img src="baby_cat1.gif" alt="Cute Baby Kitten">
+    	<div class="cat-meow">Happy Birthday! 🐾</div>
+    </div>
+    <div class="cat-peeker cat-right">
+    	<img src="baby_cat2.gif" alt="Fluffy Baby Kitten">
+    	<div class="cat-meow">Purr... Meow! ✨</div>
+    </div>
+ 
 	<div class="container">
-		
 		<div class="row">
 			<div class="col-md-2 col-xs-2 bulb-holder">
 				<div class="bulb" id="bulb_yellow"></div>
@@ -206,9 +214,6 @@
 
 			<!-- Stage 2: Pick a Date -->
 			<div id="coffee-date-stage" style="display: none;">
-				<div class="cat-gif-container">
-					<img id="happy-cat-gif" src="happy_cat.gif" alt="Happy Cats" class="coffee-cat-img">
-				</div>
 				<h2 class="coffee-question coffee-yay">
 					Yay! It's a Coffee Date! 🥰☕
 				</h2>
@@ -233,9 +238,6 @@
 
 			<!-- Stage 3: Confirmation -->
 			<div id="coffee-confirm-stage" style="display: none;">
-				<div class="cat-gif-container">
-					<img src="happy_cat.gif" alt="Celebration" class="coffee-cat-img">
-				</div>
 				<h2 class="coffee-question coffee-yay">
 					Marked on the Calendar! 🎉✨
 				</h2>
@@ -253,6 +255,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script src="effect.js"></script>
+<script src="oneko.js"></script>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
