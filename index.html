@@ -143,9 +143,10 @@
 					<button class="btn btn-primary" id="bannar_coming">Let's Decorate</button>
 					<button class="btn btn-primary" id="balloons_flying">Fly With Balloons</button>
 					<button class="btn btn-primary" id="cake_fadein">Most Delicious Cake Ever</button>
-					<button class="btn btn-primary" id="light_candle"> Light Candle</button>
+					<button class="btn btn-primary" id="light_candle">Light Candle</button>
 					<button class="btn btn-primary" id="wish_message">Happy Birthday</button>
-					<button class="btn btn-primary" id="story">A mesage for you</button>
+					<button class="btn btn-primary" id="story">A message for you</button>
+					<button class="btn btn-primary" id="blow_candle">Blow Out The Candles 🎂💨</button>
 					<!-- <button class="btn btn-primary" id="cake_cut">Lrt's Cut the Cake</button> -->
 				</div>
 			</div>
@@ -162,6 +163,24 @@
 		</div>
 
 
+	</div>
+
+	<!-- Photo Memories Overlay Modal -->
+	<div id="photo-memories-overlay" class="coffee-overlay" style="display: none;">
+		<div class="coffee-modal text-center photo-modal">
+			<h2 class="coffee-question coffee-yay">
+				Happy Birthday Nandhini! 📸✨
+			</h2>
+			<div id="photo-memories-container" class="photo-slider-wrapper">
+				<img id="current-photo" src="nan01.png" alt="Nandhini" class="photo-slide-img">
+			</div>
+			<div class="photo-nav-btns" style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
+				<button id="btn-prev-photo" type="button" class="quick-date-btn">❮ Prev</button>
+				<span id="photo-counter" style="font-family: 'Signika'; color: #888; margin: 0 15px; font-weight: bold;">1 / 2</span>
+				<button id="btn-next-photo" type="button" class="quick-date-btn">Next ❯</button>
+			</div>
+			<button id="btn-finish-photos" type="button" class="btn btn-confirm" style="margin-top: 15px;">One More Thing... ☕💖</button>
+		</div>
 	</div>
 
 	<!-- Coffee Proposal Overlay Modal -->

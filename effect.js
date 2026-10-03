@@ -148,10 +148,7 @@ $('document').ready(function(){
 				if(i == totalMsg + 1){
 					$("p:nth-child("+totalMsg+")").fadeOut('slow').promise().done(function () {
 						$('.cake').fadeIn('fast');
-						// Trigger coffee proposal modal after the messages and cake finish
-						setTimeout(function() {
-							$('#coffee-overlay').fadeIn('slow');
-						}, 2500);
+						$('#blow_candle').fadeIn('slow');
 					});
 				}
 				else{
@@ -161,6 +158,77 @@ $('document').ready(function(){
 		}
 		
 		msgLoop(0);
+	});
+
+	// --- Blow Out Candles & Crackers Blast ---
+	function blastCrackers() {
+		var duration = 4.5 * 1000;
+		var animationEnd = Date.now() + duration;
+		var defaults = { startVelocity: 35, spread: 360, ticks: 70, zIndex: 99999 };
+
+		function randomInRange(min, max) {
+			return Math.random() * (max - min) + min;
+		}
+
+		var interval = setInterval(function() {
+			var timeLeft = animationEnd - Date.now();
+
+			if (timeLeft <= 0) {
+				return clearInterval(interval);
+			}
+
+			var particleCount = 60 * (timeLeft / duration);
+			if (typeof confetti === 'function') {
+				confetti(Object.assign({}, defaults, { particleCount: particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
+				confetti(Object.assign({}, defaults, { particleCount: particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
+				confetti(Object.assign({}, defaults, { particleCount: particleCount, origin: { x: 0.5, y: 0.3 }, spread: 160 }));
+			}
+		}, 250);
+	}
+
+	$('#blow_candle').click(function(){
+		// 1. Extinguish candle flames
+		$('.fuego').fadeOut('slow');
+		$(this).fadeOut('slow');
+
+		// 2. Blast of crackers & party confetti!
+		blastCrackers();
+
+		// 3. Continue to photo memories (if photos are present) or straight to Coffee Polama
+		setTimeout(function(){
+			if ($('#photo-memories-container img').length > 0) {
+				$('#photo-memories-overlay').fadeIn('slow');
+			} else {
+				$('#coffee-overlay').fadeIn('slow');
+			}
+		}, 3200);
+	});
+
+	$('#btn-finish-photos').click(function(){
+		$('#photo-memories-overlay').fadeOut('fast', function(){
+			$('#coffee-overlay').fadeIn('slow');
+		});
+	});
+
+	// Photo Carousel Navigation
+	var photos = ['nan01.png', 'nan02.png'];
+	var currentPhotoIndex = 0;
+
+	function updatePhoto() {
+		$('#current-photo').fadeOut(150, function(){
+			$(this).attr('src', photos[currentPhotoIndex]).fadeIn(150);
+			$('#photo-counter').text((currentPhotoIndex + 1) + ' / ' + photos.length);
+		});
+	}
+
+	$('#btn-next-photo').click(function(){
+		currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+		updatePhoto();
+	});
+
+	$('#btn-prev-photo').click(function(){
+		currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+		updatePhoto();
 	});
 
 	// --- Coffee Proposal & Date Picker Logic ---
