@@ -1314,67 +1314,57 @@ audio {
     	}
     }*/
 
-/* Cute Baby Cat Peekers at start */
-.cat-peeker {
+/* 3 Cute Kitten Tenor Embeds at 3 Corners */
+.tenor-corner {
     position: fixed;
-    z-index: 100;
-    pointer-events: none;
-    transition: all 0.5s ease;
-}
-
-.cat-left {
-    bottom: 80px;
-    left: 20px;
-    animation: floatCat 3s ease-in-out infinite alternate;
-}
-
-.cat-right {
-    bottom: 80px;
-    right: 20px;
-    animation: floatCat 3s ease-in-out infinite alternate-reverse;
-}
-
-.cat-peeker img {
-    width: 140px;
-    height: 100px;
-    object-fit: cover;
+    z-index: 999;
     border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     border: 3px solid #ffccd5;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
     background: #fff;
+    width: 130px;
+    max-width: 25vw;
+    transition: transform 0.3s ease;
 }
 
-.cat-meow {
-    font-family: 'Caveat', cursive;
-    font-size: 16px;
-    font-weight: 700;
-    color: #e83e8c;
-    background: #fff;
-    padding: 3px 12px;
-    border-radius: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-top: 5px;
-    text-align: center;
-    border: 1px solid #ffb3c6;
+.tenor-corner:hover {
+    transform: scale(1.08);
 }
 
-@keyframes floatCat {
-    0% { transform: translateY(0px) rotate(-2deg); }
-    100% { transform: translateY(-10px) rotate(2deg); }
+.tenor-top-left {
+    top: 75px;
+    left: 15px;
+}
+
+.tenor-bottom-left {
+    bottom: 75px;
+    left: 15px;
+}
+
+.tenor-bottom-right {
+    bottom: 75px;
+    right: 15px;
 }
 
 @media (max-width: 600px) {
-    .cat-peeker img {
-        width: 100px;
-        height: 72px;
+    .tenor-corner {
+        width: 85px;
+        border-radius: 12px;
+        border-width: 2px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-    .cat-left {
-        bottom: 75px;
-        left: 8px;
+    .tenor-top-left {
+        top: 60px;
+        left: 6px;
     }
-    .cat-right {
-        bottom: 75px;
-        right: 8px;
+    .tenor-bottom-left {
+        bottom: 70px;
+        left: 6px;
+    }
+    .tenor-bottom-right {
+        bottom: 70px;
+        right: 6px;
     }
 }
 
