@@ -148,6 +148,10 @@ $('document').ready(function(){
 				if(i == totalMsg + 1){
 					$("p:nth-child("+totalMsg+")").fadeOut('slow').promise().done(function () {
 						$('.cake').fadeIn('fast');
+						// Trigger coffee proposal modal after the messages and cake finish
+						setTimeout(function() {
+							$('#coffee-overlay').fadeIn('slow');
+						}, 2500);
 					});
 				}
 				else{
@@ -158,9 +162,128 @@ $('document').ready(function(){
 		
 		msgLoop(0);
 	});
+
+	// --- Coffee Proposal & Date Picker Logic ---
+	var yesScale = 1.0;
+	var noCount = 0;
+	var noTexts = [
+		"No 🥺",
+		"Are you sure? 🥺",
+		"Really sure? 😢",
+		"Think of the coffee! ☕😭",
+		"Don't break my heart 💔",
+		"Look at the crying cat! 🐱😭",
+		"Please say yes? 🥺",
+		"Reconsider? 🥺",
+		"Still no? 😭",
+		"Just press YES! 🥰"
+	];
+
+	// No Button Clicked: Yes button grows bigger & shows crying cat GIF
+	$('#btn-no').click(function(){
+		noCount++;
+		yesScale += 0.35;
+
+		// Yes button gets bigger each time
+		$('#btn-yes').css({
+			'transform': 'scale(' + yesScale + ')'
+		});
+
+		// Switch to crying cat gif
+		$('#coffee-cat-gif').attr('src', 'crying_cat.gif');
+
+		// Cycle playful text
+		var textIndex = Math.min(noCount, noTexts.length - 1);
+		$(this).text(noTexts[textIndex]);
+
+		// Playful little shake/movement
+		var randomX = (Math.random() - 0.5) * 30;
+		var randomY = (Math.random() - 0.5) * 15;
+		$(this).css({
+			'transform': 'translate(' + randomX + 'px, ' + randomY + 'px)'
+		});
+	});
+
+	// Yes Button Clicked: Celebration & Show Date Picker
+	$('#btn-yes').click(function(){
+		if (typeof confetti === 'function') {
+			confetti({
+				particleCount: 120,
+				spread: 70,
+				origin: { y: 0.6 }
+			});
+		}
+
+		$('#coffee-ask-stage').fadeOut('fast', function(){
+			$('#coffee-date-stage').fadeIn('slow');
+		});
+	});
+
+	// Initialize date picker minimum date to today
+	var now = new Date();
+	var yyyy = now.getFullYear();
+	var mm = String(now.getMonth() + 1).padStart(2, '0');
+	var dd = String(now.getDate()).padStart(2, '0');
+	$('#selected-coffee-date').attr('min', yyyy + '-' + mm + '-' + dd);
+
+	// Quick Date Select Buttons
+	$('.quick-date-btn').click(function(){
+		$('.quick-date-btn').removeClass('active');
+		$(this).addClass('active');
+
+		var daysVal = $(this).data('days');
+		var targetDate = new Date();
+
+		if (daysVal === 'this_weekend') {
+			var dayOfWeek = targetDate.getDay();
+			var daysUntilSat = (6 - dayOfWeek + 7) % 7;
+			if (daysUntilSat === 0) daysUntilSat = 7;
+			targetDate.setDate(targetDate.getDate() + daysUntilSat);
+		} else {
+			targetDate.setDate(targetDate.getDate() + parseInt(daysVal));
+		}
+
+		var tYYYY = targetDate.getFullYear();
+		var tMM = String(targetDate.getMonth() + 1).padStart(2, '0');
+		var tDD = String(targetDate.getDate()).padStart(2, '0');
+		$('#selected-coffee-date').val(tYYYY + '-' + tMM + '-' + tDD);
+	});
+
+	// Confirm Date Clicked
+	$('#btn-confirm-date').click(function(){
+		var pickedDate = $('#selected-coffee-date').val();
+		if (!pickedDate) {
+			alert("Please select a date first! 📅☕");
+			return;
+		}
+
+		var note = $('#coffee-time-note').val().trim();
+		var dParts = pickedDate.split('-');
+		var dObj = new Date(dParts[0], dParts[1] - 1, dParts[2]);
+		var dateFormatted = dObj.toLocaleDateString('en-US', {
+			weekday: 'long',
+			month: 'short',
+			day: 'numeric',
+			year: 'numeric'
+		});
+
+		var displayText = "📅 " + dateFormatted + (note ? " (" + note + ")" : "");
+		$('#confirmed-date-text').text(displayText);
+
+		var waMsg = "Hey Jaswanth! 🥰 I'm free for coffee on " + dateFormatted + (note ? " (" + note + ")" : "") + "! ☕✨";
+		var waUrl = "https://wa.me/?text=" + encodeURIComponent(waMsg);
+		$('#btn-whatsapp-share').attr('href', waUrl);
+
+		if (typeof confetti === 'function') {
+			confetti({
+				particleCount: 160,
+				spread: 90,
+				origin: { y: 0.5 }
+			});
+		}
+
+		$('#coffee-date-stage').fadeOut('fast', function(){
+			$('#coffee-confirm-stage').fadeIn('slow');
+		});
+	});
 });
-
-
-
-
-//alert('hello');
